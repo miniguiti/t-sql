@@ -1,0 +1,43 @@
+--> DECLARANDO VARIÁVEIS <--
+DECLARE @IDADE INT
+SET @IDADE = 21
+
+
+
+--> CONTROLE DE FLUXO <--
+-- U: tipo tabela
+-- Se TABELA existe exclui, senão cria
+
+IF OBJECT_ID('TABELA_TESTE', 'U') IS NOT NULL
+BEGIN
+	DROP TABLE TABELA_TESTE
+END 
+CREATE TABLE TABELA_TESTE (ID VARCHAR (10))
+
+--Encurtando:
+IF OBJECT_ID('TABELA_TESTE', 'U') IS NULL CREATE TABLE TABELA_TESTE (ID VARCHAR (10))
+
+
+--> CONTROLE DE FLUXO DOS VALORES DE VARIÁVEIS <--
+
+--Data atual
+SELECT GETDATE()
+
+--Dia da semana da data atual
+SELECT DATENAME(WEEKDAY, GETDATE())
+
+--Dia da semana da data atual somando dois dias
+SELECT DATENAME(WEEKDAY, DATEADD(DAY, 2, GETDATE()))
+
+--Atribui valor as variaveis de acordo com retorno das funções de dias
+DECLARE @DIA_SEMANA VARCHAR(20)
+DECLARE @NUMERO_DIAS INT 
+
+SET @NUMERO_DIAS = 6
+SET @DIA_SEMANA = DATENAME(WEEKDAY, DATEADD(DAY, @NUMERO_DIAS, GETDATE()))
+
+PRINT @DIA_SEMANA
+IF @DIA_SEMANA = 'Domingo' OR @DIA_SEMANA = 'Sabádo'
+	PRINT 'Esse dia é fim de semana!'
+ELSE
+	PRINT 'Esse dia é semana!'
